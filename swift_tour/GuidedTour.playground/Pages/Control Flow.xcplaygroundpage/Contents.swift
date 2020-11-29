@@ -20,11 +20,15 @@ print(teamScore)
 var optionalString: String? = "Hello"
 print(optionalString == nil)
 
-var optionalName: String? = "John Appleseed"
+var optionalName: String? = nil
 var greeting = "Hello!"
 if let name = optionalName {
     greeting = "Hello, \(name)"
 }
+else {
+    greeting = "Hello, aaa!"
+}
+print(greeting)
 
 //: - Experiment:
 //: Change `optionalName` to `nil`. What greeting do you get? Add an `else` clause that sets a different greeting if `optionalName` is `nil`.

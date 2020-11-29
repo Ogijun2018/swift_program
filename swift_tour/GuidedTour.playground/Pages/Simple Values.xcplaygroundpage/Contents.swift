@@ -34,7 +34,7 @@ print(floatValue)
 //:
 let label = "The width is "
 let width = 94
-let widthLabel = label + width
+let widthLabel = label + String(width)
 
 //: - Experiment:
 //: Try removing the conversion to `String` from the last line. What error do you get?
