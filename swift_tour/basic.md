@@ -69,3 +69,72 @@ Swift では**キャメルケース**を使う。
 小文字開始のキャメルケースは、メソッド名、変数名などに使用。（`message totalCount`）
 
 Swift では変数名などの識別子に、Unicode も使える（日本語も使える）
+
+## 制御構文
+
+### repeat-while 文
+
+C 言語の do-while 文とおなじ。コードブロックを必ず 1 回実行してから条件に入る。
+
+例: コラッツの問題
+
+```
+var n = 7
+repeat {
+  print("\(n) ", terminator:"") //改行しない
+  if n % 2 == 0 {
+    n /= 2
+  } else {
+    n = n * 3 + 1
+  }
+} while n > 1
+print(n)    // 改行して終わり
+```
+
+### switch 文
+
+C 言語と違う点
+
+- break が必要ない →case 節が終わったら switch 文から抜ける
+  - switch 文から抜けない・次の条件に逆に進みたい時は`fallthrough`を使う
+- case の中には何か文がなければならない
+- 複数を列挙する場合にはカンマ(,)で区切る
+- 複数の case 節が表す条件分岐が重複することがあるが、その場合はより上に書いてあるものが判定される。
+
+### ラベル付きのループ文
+
+ラベルは while 文や for 文の前に、識別子と`:`をおく。
+
+break 文はラベルのつけられたループから抜け出し、そのループの次の別の文の実行に移る。
+
+continue 文はラベルﾉつけられたループの残りの部分の実行をスキップして、次の繰り返しが可能かどうか、条件の判定に移る。
+
+例: カレンダー
+
+```
+let days = 31     // 1ヶ月の日数
+let firstDay = 2  // 1日目の曜日（0:日曜日）
+var w = 0
+while w < firstDay {
+  print("  ", terminator:"")
+  w += 1
+}
+var d = 1
+loop: while true {
+  while w < 7 {
+    let pad = d < 10 ? " " : "" // 1桁の場合の詰め物
+    print(pad + "  \(d)", terminator:"")
+    w += 1
+    d += 1
+
+    if d > days {
+      print()
+      break loop    // 31を超えたら改行してループから抜け出す
+    }
+    print()         // 1週間が終わったら改行してまた日曜日から
+    w = 0
+  }
+}
+```
+
+### ラベルつきの if 文、switch 文
