@@ -153,3 +153,185 @@ struct 構造体名 {
 ```
 
 ドットであらゆる階層へアクセスできる。
+
+## クラスとは
+
+UI 部品を作るためのテンプレートのこと。
+
+構造体と異なるところは
+
+- 宣言時に書くキーワードが`struct`ではなく、`class`になるという点。
+
+例: Taiyaki クラスの宣言
+
+```
+class Taiyaki {
+  var nakami = "あんこ"
+  func sayNakami() {
+    print(nakami)
+  }
+}
+```
+
+`var taiyaki = Taiyaki()`
+
+- **構造体は「値型」、クラスは「参照型」**
+
+オリジナルの型を作る場合はなるべく構造体を利用する方が良い。
+
+→ じゃあなぜ MapKit はクラスなのか？
+
+→ MapKit は昔型ある古いフレームワークだから
+
+### 古いフレームワークの使い方
+
+body の戻り値は`some View`で、この型は SwiftUI フレームワークに含まれている UI 部品しか受け付けない。
+
+しかし、MKMapView は MapKit フレームワークの UI 部品。
+
+iOS には古いフレームワークが多数含まれているので、必ず**橋渡しするコード**が必要になる。
+
+```
+struct 構造体名: UIViewRepresentable {
+  func makeUIView(context: Context) -> クラス名 {
+    return クラス名()
+  }
+  func updateUIView(_ uiView: クラス名, context: Context) {
+  }
+}
+```
+
+## プロトコル
+
+```
+protocol プロトコル名 {
+}
+```
+
+プロトコルは構造体といたような仕組みなので、プロパティ（ストアドプロパティ・コンピューテッドプロパティ）・メソッドが中に持つことができる。
+
+ポイント 1: **プロトコルにはメソッドの中身を書かない**
+
+```
+protocol KyotoProtocol {
+  func stopGlobalWarming()
+}
+```
+
+プロトコルで重要なのは「どの国がこのプロトコルに参加するか」。→ 批准(conform)と呼ぶ
+
+例: Japan 構造体が KyotoProtocol を批准する
+
+```
+struct Japan: KyotoProtocol {
+  // そのプロトコルに定義されているメソッドを実装する必要がある
+  func stopGlobalWarming() {
+    print("クリーンエネルギーを推進します")
+    print("森林を増やします")
+  }
+}
+```
+
+ポイント 2: プロトコルのプロパティ
+
+```
+protocol プロトコル名 {
+  var プロパティ名: 型 { get set }
+}
+```
+
+例: KyotoProtocol の宣言
+
+```
+protocol KyotoProtocol {
+  // ストアドプロパティ
+  var co2: Double { get set }
+  // コンピューテッドプロパティ getのみの部分に注意
+  var carbonTax: Double { get }
+}
+```
+
+例: KyotoProtocol を批准した Japan 構造体がプロパティを宣言する
+
+```
+struct Japan: KyotoProtocol {
+  // ストアドプロパティ
+  var co2: Double = 42
+  // コンピューテッドプロパティ
+  var carbonTax: Double {
+    co2 * 0.01
+  }
+}
+var japan = Japan()
+print(japan.co2)        // 42.0と表示される
+print(japan.carbonTax)  // 0.42と表示される
+```
+
+ポイント 2: **プロトコルを型として使う**
+
+変数名を宣言する際に、変数名の後ろに`:`をつけてプロトコル名を指定すると、その変数はそのプロトコルを批准している構造体専用の箱になる。
+
+例: 変数の型に KyotoProtocol を指定する
+
+```
+var country: KyotoProtocol = Japan()
+```
+
+変数 country には、KyotoProtocol を批准している構造体のインスタンスしか格納できなくなる（エラーになる）。
+
+→ 通常の型の場合と同様にアプリ実行前にエラーを見つけることができる。
+
+## ContentView 構造体の詳細解説
+
+```
+struct ContentView: View {
+    var body: some View {
+        Text("Hello")
+    }
+}
+```
+
+ContentView 構造体は View プロトコルに批准している
+
+View プロトコルはテキスト・ボタン・スライダーなどの SwiftUI フレームワークにある UI 部品が必ず批准しなければならないプロトコル。
+
+→ View プロトコルに批准している構造体だけが、iPhone が画面に表示することができる。
+
+MKMapView クラスも View プロトコルに批准していないので、橋渡しのコードが必要だった。
+
+## タプル
+
+```
+Button(action: {
+    self.isJapanese = true
+    self.japanese = self.cards.randomElement()!.key
+}) {
+    Text("次へ")
+}
+```
+
+`self.cards.randomElement()!.key`…辞書の中からランダムにキーを取得するコード
+
+`randomElement()`…辞書の中からランダムに 1 つの要素を返すメソッド
+
+```
+func randomElement() -> (key: String, value: String)?
+```
+
+このメソッドの返り値は`(key: String, value: String)?`である。
+
+この戻り値の書き方を「**タプル**」という。
+
+タプルとは、**複数の値を一つの変数にまとめる機能**のこと。
+
+`var 変数名 = (要素名: 値, 要素名: 値, ...)`
+
+このタプルから値を取り出すときはドットシンタックスを使って、`変数名.要素名`とする。
+
+タプルと配列・辞書との最大の違いは、**タプルには異なる型の要素を格納できる**こと。
+
+もう一つは、**タプルでは要素の追加・削除が行えない**という大きなデメリットがある。
+
+また、返り値には`?`がついているため、オプショナル型であることがわかる。
+
+例えば、辞書 cards が空の場合は nil が返される。
