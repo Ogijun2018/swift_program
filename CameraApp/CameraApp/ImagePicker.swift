@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     
+    @Binding var image:Image?
+    @Binding var isPicking:Bool
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -27,6 +30,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 struct ImagePicker_Previews: PreviewProvider {
     static var previews: some View {
-        ImagePicker()
+        // constant()タイプメソッドでBinding型の定数をもらうことができる
+        ImagePicker(image: .constant(nil), isPicking: .constant(true))
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BFA9168F257BB0AB008A0F1C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA9168E257BB0AB008A0F1C /* Coordinator.swift */; };
+		BFA91692257BF415008A0F1C /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA91691257BF415008A0F1C /* UIImageExtensions.swift */; };
 		BFB624E0257BA232002277D1 /* CameraAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB624DF257BA232002277D1 /* CameraAppApp.swift */; };
 		BFB624E2257BA232002277D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB624E1257BA232002277D1 /* ContentView.swift */; };
 		BFB624E4257BA233002277D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFB624E3257BA233002277D1 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		BFA9168E257BB0AB008A0F1C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		BFA91691257BF415008A0F1C /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		BFB624DC257BA232002277D1 /* CameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB624DF257BA232002277D1 /* CameraAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAppApp.swift; sourceTree = "<group>"; };
 		BFB624E1257BA232002277D1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				BFB624E1257BA232002277D1 /* ContentView.swift */,
 				BFB624EF257BA7F3002277D1 /* ImagePicker.swift */,
 				BFA9168E257BB0AB008A0F1C /* Coordinator.swift */,
+				BFA91691257BF415008A0F1C /* UIImageExtensions.swift */,
 				BFB624E3257BA233002277D1 /* Assets.xcassets */,
 				BFB624E8257BA233002277D1 /* Info.plist */,
 				BFB624E5257BA233002277D1 /* Preview Content */,
@@ -146,6 +149,7 @@
 			files = (
 				BFA9168F257BB0AB008A0F1C /* Coordinator.swift in Sources */,
 				BFB624F0257BA7F3002277D1 /* ImagePicker.swift in Sources */,
+				BFA91692257BF415008A0F1C /* UIImageExtensions.swift in Sources */,
 				BFB624E2257BA232002277D1 /* ContentView.swift in Sources */,
 				BFB624E0257BA232002277D1 /* CameraAppApp.swift in Sources */,
 			);
